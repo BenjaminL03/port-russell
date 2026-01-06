@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Port Russell - Réservations</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>📋 Gestion des Réservations</h1>
+          <div class="dashboard-info">
+            <span>👤 <%= user.username %></span>
+          </div>
+        </div>
+
+        <nav class="dashboard-nav">
+          <ul>
+            <li><a href="/dashboard">🏠 Tableau de bord</a></li>
+            <li><a href="/catways">⚓ Catways</a></li>
+            <li><a href="/reservations">📋 Réservations</a></li>
+            <li><a href="/users">👥 Utilisateurs</a></li>
+            <li><a href="/api/logout">🚪 Déconnexion</a></li>
+          </ul>
+        </nav>
+
+        <div class="dashboard-content">
+          <h2 style="margin-bottom: 20px">
+            Toutes les Réservations (<%= reservations.length %>)
+          </h2>
+
+          <% if (reservations.length === 0) { %>
+          <p style="text-align: center; color: #999; padding: 30px">
+            Aucune réservation
+          </p>
+          <% } else { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Catway</th>
+                <th>Client</th>
+                <th>Bateau</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% reservations.forEach(function(reservation) { var now = new
+              Date(); var start = new Date(reservation.startDate); var end = new
+              Date(reservation.endDate); var status = ''; if (now < start) {
+              status = '🔵 À venir'; } else if (now >= start && now <= end) {
+              status = '🟢 En cours'; } else { status = '⚫ Terminée'; } %>
+              <tr>
+                <td><strong>#<%= reservation.catwayNumber %></strong></td>
+                <td><%= reservation.clientName %></td>
+                <td><%= reservation.boatName %></td>
+                <td>
+                  <%= new
+                  Date(reservation.startDate).toLocaleDateString('fr-FR') %>
+                </td>
+                <td>
+                  <%= new Date(reservation.endDate).toLocaleDateString('fr-FR')
+                  %>
+                </td>
+                <td><%= status %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

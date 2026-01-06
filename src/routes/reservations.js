@@ -4,7 +4,56 @@ const reservationService = require("../services/reservations");
 const { checkJWT } = require("../middlewares/private");
 
 /**
- * GET /catways/:id/reservations - Liste des réservations d'un catway (protégée)
+ * @swagger
+ * components:
+ *   schemas:
+ *     Reservation:
+ *       type: object
+ *       required:
+ *         - catwayNumber
+ *         - clientName
+ *         - boatName
+ *         - startDate
+ *         - endDate
+ *       properties:
+ *         catwayNumber:
+ *           type: number
+ *           description: Numéro du catway réservé
+ *         clientName:
+ *           type: string
+ *           description: Nom du client
+ *         boatName:
+ *           type: string
+ *           description: Nom du bateau
+ *         startDate:
+ *           type: string
+ *           format: date-time
+ *           description: Date de début
+ *         endDate:
+ *           type: string
+ *           format: date-time
+ *           description: Date de fin
+ */
+
+/**
+ * @swagger
+ * /api/catways/{id}/reservations:
+ *   get:
+ *     summary: Liste des réservations d'un catway
+ *     tags: [Reservations]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Liste des réservations
+ *       401:
+ *         description: Non authentifié
  */
 router.get("/catways/:id/reservations", checkJWT, async (req, res) => {
   try {
@@ -24,7 +73,29 @@ router.get("/catways/:id/reservations", checkJWT, async (req, res) => {
 });
 
 /**
- * GET /catways/:id/reservations/:idReservation - Détails d'une réservation (protégée)
+ * @swagger
+ * /api/catways/{id}/reservations/{idReservation}:
+ *   get:
+ *     summary: Détails d'une réservation
+ *     tags: [Reservations]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: idReservation
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Détails de la réservation
+ *       404:
+ *         description: Réservation non trouvée
  */
 router.get(
   "/catways/:id/reservations/:idReservation",
@@ -48,7 +119,41 @@ router.get(
 );
 
 /**
- * POST /catways/:id/reservations - Créer une réservation (protégée)
+ * @swagger
+ * /api/catways/{id}/reservations:
+ *   post:
+ *     summary: Créer une réservation
+ *     tags: [Reservations]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               clientName:
+ *                 type: string
+ *               boatName:
+ *                 type: string
+ *               startDate:
+ *                 type: string
+ *                 format: date-time
+ *               endDate:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       201:
+ *         description: Réservation créée
+ *       400:
+ *         description: Données invalides
  */
 router.post("/catways/:id/reservations", checkJWT, async (req, res) => {
   try {
@@ -70,7 +175,35 @@ router.post("/catways/:id/reservations", checkJWT, async (req, res) => {
 });
 
 /**
- * PUT /catways/:id/reservations/:idReservation - Modifier une réservation (protégée)
+ * @swagger
+ * /api/catways/{id}/reservations/{idReservation}:
+ *   put:
+ *     summary: Modifier une réservation
+ *     tags: [Reservations]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: idReservation
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Reservation'
+ *     responses:
+ *       200:
+ *         description: Réservation modifiée
+ *       404:
+ *         description: Réservation non trouvée
  */
 router.put(
   "/catways/:id/reservations/:idReservation",
@@ -96,7 +229,29 @@ router.put(
 );
 
 /**
- * DELETE /catways/:id/reservations/:idReservation - Supprimer une réservation (protégée)
+ * @swagger
+ * /api/catways/{id}/reservations/{idReservation}:
+ *   delete:
+ *     summary: Supprimer une réservation
+ *     tags: [Reservations]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: idReservation
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Réservation supprimée
+ *       404:
+ *         description: Réservation non trouvée
  */
 router.delete(
   "/catways/:id/reservations/:idReservation",

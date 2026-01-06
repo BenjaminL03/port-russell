@@ -4,14 +4,19 @@ const cors = require("cors");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const connectDB = require("./db/mongo");
+const { swaggerUi, specs } = require("./swagger/swagger");
 
 // Import des routes
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const catwaysRouter = require("./routes/catways");
 const reservationsRouter = require("./routes/reservations");
+const pagesRouter = require("./routes/pages");
 
 const app = express();
+
+// Documentation Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Configuration CORS
 app.use(cors());
@@ -44,16 +49,14 @@ app.use(
   })
 );
 
+// Routes Pages (EJS)
+app.use("/", pagesRouter);
+
 // Routes API
 app.use("/api", authRouter);
 app.use("/api/users", usersRouter);
-app.use("/api", reservationsRouter); // AVANT catways car routes imbriquées
+app.use("/api", reservationsRouter);
 app.use("/api/catways", catwaysRouter);
-
-// Route page d'accueil (à créer plus tard)
-app.get("/", (req, res) => {
-  res.send("Port Russell API - Page d'accueil à venir");
-});
 
 // Gestion 404
 app.use((req, res) => {

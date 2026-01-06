@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Port Russell - Tableau de bord</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>Tableau de bord - Port Russell</h1>
+          <div class="dashboard-info">
+            <span>👤 <%= user.username %> (<%= user.email %>)</span>
+            <span
+              >📅 <%= new Date().toLocaleDateString('fr-FR', { weekday: 'long',
+              year: 'numeric', month: 'long', day: 'numeric' }) %></span
+            >
+          </div>
+        </div>
+
+        <nav class="dashboard-nav">
+          <ul>
+            <li><a href="/dashboard">🏠 Tableau de bord</a></li>
+            <li><a href="/catways">⚓ Catways</a></li>
+            <li><a href="/reservations">📋 Réservations</a></li>
+            <li><a href="/users">👥 Utilisateurs</a></li>
+            <li>
+              <a href="/api-docs" target="_blank">📚 Documentation API</a>
+            </li>
+            <li><a href="/api/logout">🚪 Déconnexion</a></li>
+          </ul>
+        </nav>
+
+        <div class="dashboard-content">
+          <div class="stats">
+            <div class="stat-card">
+              <h3>Total Catways</h3>
+              <p><%= stats.totalCatways %></p>
+            </div>
+            <div class="stat-card">
+              <h3>Réservations en cours</h3>
+              <p><%= stats.activeReservations %></p>
+            </div>
+            <div class="stat-card">
+              <h3>Utilisateurs</h3>
+              <p><%= stats.totalUsers %></p>
+            </div>
+          </div>
+
+          <h2 style="margin-bottom: 20px">📋 Réservations en cours</h2>
+
+          <% if (reservations.length === 0) { %>
+          <p style="text-align: center; color: #999; padding: 30px">
+            Aucune réservation en cours
+          </p>
+          <% } else { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Catway N°</th>
+                <th>Client</th>
+                <th>Bateau</th>
+                <th>Début</th>
+                <th>Fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% reservations.forEach(reservation => { %>
+              <tr>
+                <td><strong>#<%= reservation.catwayNumber %></strong></td>
+                <td><%= reservation.clientName %></td>
+                <td><%= reservation.boatName %></td>
+                <td>
+                  <%= new
+                  Date(reservation.startDate).toLocaleDateString('fr-FR') %>
+                </td>
+                <td>
+                  <%= new Date(reservation.endDate).toLocaleDateString('fr-FR')
+                  %>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -4,7 +4,41 @@ const catwayService = require("../services/catways");
 const { checkJWT } = require("../middlewares/private");
 
 /**
- * GET /catways - Liste tous les catways (protégée)
+ * @swagger
+ * components:
+ *   schemas:
+ *     Catway:
+ *       type: object
+ *       required:
+ *         - catwayNumber
+ *         - catwayType
+ *         - catwayState
+ *       properties:
+ *         catwayNumber:
+ *           type: number
+ *           description: Numéro unique du catway
+ *         catwayType:
+ *           type: string
+ *           enum: [long, short]
+ *           description: Type de catway
+ *         catwayState:
+ *           type: string
+ *           description: État du catway
+ */
+
+/**
+ * @swagger
+ * /api/catways:
+ *   get:
+ *     summary: Liste tous les catways
+ *     tags: [Catways]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Liste des catways
+ *       401:
+ *         description: Non authentifié
  */
 router.get("/", checkJWT, async (req, res) => {
   try {
@@ -22,7 +56,24 @@ router.get("/", checkJWT, async (req, res) => {
 });
 
 /**
- * GET /catways/:id - Détails d'un catway (protégée)
+ * @swagger
+ * /api/catways/{id}:
+ *   get:
+ *     summary: Détails d'un catway
+ *     tags: [Catways]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Détails du catway
+ *       404:
+ *         description: Catway non trouvé
  */
 router.get("/:id", checkJWT, async (req, res) => {
   try {
@@ -42,7 +93,24 @@ router.get("/:id", checkJWT, async (req, res) => {
 });
 
 /**
- * POST /catways - Créer un catway (protégée)
+ * @swagger
+ * /api/catways:
+ *   post:
+ *     summary: Créer un catway
+ *     tags: [Catways]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Catway'
+ *     responses:
+ *       201:
+ *         description: Catway créé
+ *       400:
+ *         description: Données invalides
  */
 router.post("/", checkJWT, async (req, res) => {
   try {
@@ -61,7 +129,33 @@ router.post("/", checkJWT, async (req, res) => {
 });
 
 /**
- * PUT /catways/:id - Modifier un catway (protégée)
+ * @swagger
+ * /api/catways/{id}:
+ *   put:
+ *     summary: Modifier un catway
+ *     tags: [Catways]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               catwayState:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Catway modifié
+ *       404:
+ *         description: Catway non trouvé
  */
 router.put("/:id", checkJWT, async (req, res) => {
   try {
@@ -83,7 +177,24 @@ router.put("/:id", checkJWT, async (req, res) => {
 });
 
 /**
- * DELETE /catways/:id - Supprimer un catway (protégée)
+ * @swagger
+ * /api/catways/{id}:
+ *   delete:
+ *     summary: Supprimer un catway
+ *     tags: [Catways]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Catway supprimé
+ *       404:
+ *         description: Catway non trouvé
  */
 router.delete("/:id", checkJWT, async (req, res) => {
   try {

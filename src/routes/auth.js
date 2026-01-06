@@ -3,7 +3,32 @@ const router = express.Router();
 const userService = require("../services/users");
 
 /**
- * POST /login - Authentification
+ * @swagger
+ * /api/login:
+ *   post:
+ *     summary: Authentification utilisateur
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: admin@russell.com
+ *               password:
+ *                 type: string
+ *                 example: Admin123!
+ *     responses:
+ *       200:
+ *         description: Authentification réussie
+ *       401:
+ *         description: Email ou mot de passe incorrect
  */
 router.post("/login", async (req, res) => {
   try {
@@ -18,7 +43,6 @@ router.post("/login", async (req, res) => {
 
     const result = await userService.authenticate(email, password);
 
-    // Stocker dans la session pour les pages EJS
     req.session.user = result.user;
     req.session.token = result.token;
 
@@ -36,7 +60,14 @@ router.post("/login", async (req, res) => {
 });
 
 /**
- * GET /logout - Déconnexion
+ * @swagger
+ * /api/logout:
+ *   get:
+ *     summary: Déconnexion utilisateur
+ *     tags: [Auth]
+ *     responses:
+ *       302:
+ *         description: Redirection vers la page d'accueil
  */
 router.get("/logout", (req, res) => {
   req.session.destroy();

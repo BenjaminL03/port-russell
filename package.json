@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "API de gestion du Port de plaisance Russell",
   "main": "src/app.js",
-  "scripts": {
-    "start": "env-cmd -f ./env/.env node src/app.js",
-    "dev": "env-cmd -f ./env/.env.dev nodemon src/app.js",
-    "prod": "env-cmd -f ./env/.env.prod node src/app.js"
-  },
+"scripts": {
+  "start": "node src/app.js",
+  "dev": "env-cmd -f ./env/.env.dev nodemon src/app.js",
+  "prod": "env-cmd -f ./env/.env.prod node src/app.js"
+},
   "keywords": [
     "api",
     "port",

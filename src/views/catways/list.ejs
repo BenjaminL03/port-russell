@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Port Russell - Catways</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>⚓ Gestion des Catways</h1>
+          <div class="dashboard-info">
+            <span>👤 <%= user.username %></span>
+          </div>
+        </div>
+
+        <nav class="dashboard-nav">
+          <ul>
+            <li><a href="/dashboard">🏠 Tableau de bord</a></li>
+            <li><a href="/catways">⚓ Catways</a></li>
+            <li><a href="/reservations">📋 Réservations</a></li>
+            <li><a href="/users">👥 Utilisateurs</a></li>
+            <li><a href="/api/logout">🚪 Déconnexion</a></li>
+          </ul>
+        </nav>
+
+        <div class="dashboard-content">
+          <h2 style="margin-bottom: 20px">
+            Liste des Catways (<%= catways.length %>)
+          </h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Numéro</th>
+                <th>Type</th>
+                <th>État</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% catways.forEach(catway => { %>
+              <tr>
+                <td><strong>#<%= catway.catwayNumber %></strong></td>
+                <td>
+                  <% if (catway.catwayType === 'long') { %> 🟦 Long <% } else {
+                  %> 🟨 Court <% } %>
+                </td>
+                <td><%= catway.catwayState %></td>
+                <td>
+                  <a
+                    href="/catways/<%= catway.catwayNumber %>/reservations"
+                    class="btn btn-sm btn-info"
+                    >📋 Réservations</a
+                  >
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -36,6 +36,9 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 // Method Override pour PUT/DELETE dans les formulaires
 app.use(methodOverride("_method"));
 
+// Faire confiance au proxy (pour Render)
+app.set("trust proxy", 1);
+
 // Configuration des sessions
 app.use(
   session({

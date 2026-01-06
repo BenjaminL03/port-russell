@@ -27,9 +27,19 @@
         </nav>
 
         <div class="dashboard-content">
-          <h2 style="margin-bottom: 20px">
-            Liste des Utilisateurs (<%= users.length %>)
-          </h2>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <h2>Liste des Utilisateurs (<%= users.length %>)</h2>
+            <a href="/users/create" class="btn btn-sm" style="width: auto"
+              >➕ Créer un utilisateur</a
+            >
+          </div>
 
           <table>
             <thead>
@@ -37,6 +47,7 @@
                 <th>Nom d'utilisateur</th>
                 <th>Email</th>
                 <th>Date de création</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -46,6 +57,27 @@
                 <td><%= u.email %></td>
                 <td>
                   <%= new Date(u.createdAt).toLocaleDateString('fr-FR') %>
+                </td>
+                <td>
+                  <a
+                    href="/users/<%= u.email %>/edit"
+                    class="btn btn-sm btn-warning"
+                    >✏️ Modifier</a
+                  >
+                  <% if (u.email !== user.email) { %>
+                  <form
+                    action="/users/<%= u.email %>/delete"
+                    method="POST"
+                    style="display: inline"
+                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');"
+                  >
+                    <button type="submit" class="btn btn-sm btn-danger">
+                      🗑️ Supprimer
+                    </button>
+                  </form>
+                  <% } else { %>
+                  <span style="color: #999; font-size: 12px">(Vous)</span>
+                  <% } %>
                 </td>
               </tr>
               <% }); %>

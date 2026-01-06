@@ -9,12 +9,41 @@
   <body>
     <div class="home-container">
       <div class="home-card">
-        <h1>⚓ Port Russell</h1>
-        <p>Système de gestion des réservations de catways</p>
+        <h1>⚓ Port de Plaisance Russell</h1>
+
+        <div
+          style="
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+          "
+        >
+          <h3 style="color: #667eea; margin-bottom: 15px">
+            📋 À propos de l'application
+          </h3>
+          <p style="margin-bottom: 10px; line-height: 1.6">
+            Cette application permet à la capitainerie du Port Russell de gérer
+            efficacement les réservations des catways (appontements) du port de
+            plaisance.
+          </p>
+          <p style="margin-bottom: 10px; line-height: 1.6">
+            <strong>Fonctionnalités principales :</strong>
+          </p>
+          <ul style="margin-left: 20px; line-height: 1.8">
+            <li>Gestion complète des catways (24 emplacements)</li>
+            <li>Suivi des réservations en temps réel</li>
+            <li>Gestion des utilisateurs de la capitainerie</li>
+            <li>API REST sécurisée avec authentification JWT</li>
+          </ul>
+        </div>
 
         <% if (typeof error !== 'undefined') { %>
         <div class="error"><%= error %></div>
         <% } %>
+
+        <h2 style="margin-bottom: 20px; color: #333">Connexion Capitainerie</h2>
 
         <form action="/login" method="POST">
           <div class="form-group">
@@ -31,7 +60,9 @@
         </form>
 
         <p style="margin-top: 20px; text-align: center; font-size: 14px">
-          <a href="/api-docs" style="color: #667eea">📚 Documentation API</a>
+          <a href="/api-docs" style="color: #667eea"
+            >📚 Documentation API (Swagger)</a
+          >
         </p>
       </div>
     </div>

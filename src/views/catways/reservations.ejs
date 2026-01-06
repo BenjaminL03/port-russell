@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Port Russell - Réservations</title>
+    <title>
+      Port Russell - Réservations du Catway #<%= catway.catwayNumber %>
+    </title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <div class="container">
       <div class="dashboard">
         <div class="dashboard-header">
-          <h1>📋 Gestion des Réservations</h1>
+          <h1>📋 Réservations du Catway #<%= catway.catwayNumber %></h1>
           <div class="dashboard-info">
             <span>👤 <%= user.username %></span>
           </div>
@@ -29,36 +31,48 @@
         <div class="dashboard-content">
           <div
             style="
+              background: #f8f9fa;
+              padding: 20px;
+              border-radius: 10px;
+              margin-bottom: 20px;
+            "
+          >
+            <h3>Informations du Catway</h3>
+            <p><strong>Numéro :</strong> #<%= catway.catwayNumber %></p>
+            <p><strong>Type :</strong> <%= catway.catwayType %></p>
+            <p><strong>État :</strong> <%= catway.catwayState %></p>
+          </div>
+
+          <div
+            style="
               display: flex;
               justify-content: space-between;
               align-items: center;
               margin-bottom: 20px;
             "
           >
-            <h2>Toutes les Réservations (<%= reservations.length %>)</h2>
+            <h2>Réservations (<%= reservations.length %>)</h2>
             <a
-              href="/reservations/create"
+              href="/catways"
               class="btn btn-sm"
-              style="width: auto"
-              >➕ Créer une réservation</a
+              style="width: auto; background: #6c757d"
+              >← Retour aux catways</a
             >
           </div>
 
           <% if (reservations.length === 0) { %>
           <p style="text-align: center; color: #999; padding: 30px">
-            Aucune réservation
+            Aucune réservation pour ce catway
           </p>
           <% } else { %>
           <table>
             <thead>
               <tr>
-                <th>Catway</th>
                 <th>Client</th>
                 <th>Bateau</th>
                 <th>Date début</th>
                 <th>Date fin</th>
                 <th>Statut</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -68,7 +82,6 @@
               status = '🔵 À venir'; } else if (now >= start && now <= end) {
               status = '🟢 En cours'; } else { status = '⚫ Terminée'; } %>
               <tr>
-                <td><strong>#<%= reservation.catwayNumber %></strong></td>
                 <td><%= reservation.clientName %></td>
                 <td><%= reservation.boatName %></td>
                 <td>
@@ -80,23 +93,6 @@
                   %>
                 </td>
                 <td><%= status %></td>
-                <td>
-                  <a
-                    href="/reservations/<%= reservation._id %>/edit"
-                    class="btn btn-sm btn-warning"
-                    >✏️ Modifier</a
-                  >
-                  <form
-                    action="/reservations/<%= reservation._id %>/delete"
-                    method="POST"
-                    style="display: inline"
-                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');"
-                  >
-                    <button type="submit" class="btn btn-sm btn-danger">
-                      🗑️ Supprimer
-                    </button>
-                  </form>
-                </td>
               </tr>
               <% }); %>
             </tbody>

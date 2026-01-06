@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Port Russell - Créer un Utilisateur</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-header">
+          <h1>👥 Créer un Utilisateur</h1>
+          <div class="dashboard-info">
+            <span>👤 <%= user.username %></span>
+          </div>
+        </div>
+
+        <nav class="dashboard-nav">
+          <ul>
+            <li><a href="/dashboard">🏠 Tableau de bord</a></li>
+            <li><a href="/catways">⚓ Catways</a></li>
+            <li><a href="/reservations">📋 Réservations</a></li>
+            <li><a href="/users">👥 Utilisateurs</a></li>
+            <li><a href="/api/logout">🚪 Déconnexion</a></li>
+          </ul>
+        </nav>
+
+        <div class="dashboard-content">
+          <% if (error) { %>
+          <div class="error"><%= error %></div>
+          <% } %>
+
+          <form action="/users/create" method="POST" style="max-width: 600px">
+            <div class="form-group">
+              <label for="username">Nom d'utilisateur *</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                minlength="3"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Mot de passe *</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                minlength="6"
+              />
+              <small style="color: #666">Minimum 6 caractères</small>
+            </div>
+
+            <div style="display: flex; gap: 10px">
+              <button type="submit" class="btn">Créer</button>
+              <a
+                href="/users"
+                class="btn"
+                style="
+                  background: #6c757d;
+                  text-align: center;
+                  text-decoration: none;
+                  display: inline-block;
+                "
+                >Annuler</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

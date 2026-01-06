@@ -27,9 +27,19 @@
         </nav>
 
         <div class="dashboard-content">
-          <h2 style="margin-bottom: 20px">
-            Liste des Catways (<%= catways.length %>)
-          </h2>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <h2>Liste des Catways (<%= catways.length %>)</h2>
+            <a href="/catways/create" class="btn btn-sm" style="width: auto"
+              >➕ Créer un catway</a
+            >
+          </div>
 
           <table>
             <thead>
@@ -55,6 +65,21 @@
                     class="btn btn-sm btn-info"
                     >📋 Réservations</a
                   >
+                  <a
+                    href="/catways/<%= catway.catwayNumber %>/edit"
+                    class="btn btn-sm btn-warning"
+                    >✏️ Modifier</a
+                  >
+                  <form
+                    action="/catways/<%= catway.catwayNumber %>/delete"
+                    method="POST"
+                    style="display: inline"
+                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?');"
+                  >
+                    <button type="submit" class="btn btn-sm btn-danger">
+                      🗑️ Supprimer
+                    </button>
+                  </form>
                 </td>
               </tr>
               <% }); %>

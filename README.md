@@ -161,12 +161,26 @@ Mot de passe: Admin123!
 
 # Déploiement
 
-L'application est déployée sur : **[URL À VENIR]**
+**Application en ligne :** https://port-russell-aplt.onrender.com
+
+**Documentation API (Swagger) :** https://port-russell-aplt.onrender.com/api-docs
+
+# Accès à l'application
+
+# Via l'interface web :
+
+1. Rendez-vous sur https://port-russell-aplt.onrender.com
+2. Connectez-vous avec les identifiants de test ci-dessus
+3. Accédez au tableau de bord
+4. Gérez les catways, réservations et utilisateurs via l'interface
+
+# Via l'API REST :
+
+Consultez la documentation Swagger pour tester directement l'API :
+https://port-russell-aplt.onrender.com/api-docs
 
 # Auteur
 
 **Benjamin**
 
 - GitHub: [@BenjaminL03](https://github.com/BenjaminL03)
-
-# Licence
